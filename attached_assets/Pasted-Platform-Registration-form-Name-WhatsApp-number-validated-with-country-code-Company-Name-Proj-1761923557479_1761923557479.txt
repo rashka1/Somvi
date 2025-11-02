@@ -1,0 +1,147 @@
+Platform
+
+Registration form: Name, WhatsApp number (validated with country code), Company Name, Project Name.
+
+No email required.
+
+Material catalog page:
+
+Categories with collapsible sub-categories.
+
+Material cards: Somali and English names, static images, unit labels (e.g., Kiilo, Tan, Kartoon).
+
+Only active materials shown.
+
+RFQ Form:
+
+Add materials + quantity.
+
+Project name auto-filled from registration.
+
+Auto-generate unique RFQ number SOMVI-RFQ-XXXX.
+
+Save RFQ to database and link to client.
+
+WhatsApp confirmation after RFQ submission:
+
+Redirect to https://wa.me/<admin_number>?text=Hi%20SOMVI%2C%20I%20submitted%20an%20RFQ%20(SOMVI-RFQ-XXXX).
+
+Confirmation page with summary + download PDF.
+
+⚙️ 5. Admin Dashboard
+
+Navigation: Dashboard | RFQs | Materials | Suppliers | CRM | Reports | Settings
+
+🟢 Dashboard
+
+Cards for: Total RFQs, Active Leads, Completed Deliveries, Top Clients, Daily GMV.
+
+Line chart (RFQs over time) + pie chart (Leads by stage).
+
+🟡 RFQs Management
+
+Table with columns: RFQ No, Client, Project, Status, Created Date.
+
+Status flow: Pending → Sent → Replied → Confirmed → Delivered → Closed.
+
+Buttons:
+
+“Add/Edit Materials” (admin can add missing materials).
+
+“Generate Quotation PDF.”
+
+“Send to Client on WhatsApp” (opens chat link).
+
+Auto-create CRM lead when RFQ created.
+
+🟠 Material Management
+
+Add/Edit/Delete materials.
+
+Fields: name_en, name_so, unit_so, category, image, active toggle.
+
+Admin can activate/deactivate materials.
+
+🔵 Supplier Management
+
+Add/Edit suppliers with name, contact, WhatsApp, and email.
+
+Assign suppliers to materials or RFQs.
+
+Send RFQs to multiple suppliers.
+
+Record received quotes with price, lead time, logistics options.
+
+🟣 CRM (Sales Pipeline)
+
+Pipeline stages:
+
+New Request (from platform or manually created)
+
+RFQ Sent to Suppliers
+
+Supplier Quotes Received
+
+Contractor Review
+
+In Delivery
+
+Feedback / Closed Won
+
+Features:
+
+Each stage represented as Trello-like Kanban board.
+
+Cards auto-move when RFQ status changes.
+
+Custom fields per stage (supplier name, price, ETA, payment method, notes).
+
+WhatsApp integration for follow-ups.
+
+🔴 Reports
+
+Export RFQ and CRM data to CSV or PDF.
+
+KPIs: monthly revenue, supplier performance, RFQ conversion rate.
+
+⚙️ Settings
+
+Company info: name, logo, description, contact.
+
+Default WhatsApp number for outgoing messages.
+
+📑 6. PDF Generation
+
+Auto-generate quotation PDF with:
+
+Company logo, RFQ number, date, client name, and materials table.
+
+Footer with contact info and Somali tagline.
+
+Stored in Supabase Storage, downloadable by admin/client.
+
+💬 7. WhatsApp Integration
+
+Client side: Free redirect via https://wa.me/ link.
+
+Admin side: Option to upgrade to official WhatsApp API (Twilio or Meta Cloud) with placeholders for API keys.
+
+🧠 8. Database Tables
+
+users: id, name, email, role
+
+clients: id, name, whatsapp, company, project_name, created_at
+
+materials: id, name_en, name_so, unit_so, category, active, image_url
+
+rfqs: id, client_id, rfq_number, status, project_name, created_at
+
+rfq_items: id, rfq_id, material_id, quantity
+
+suppliers: id, name, contact, whatsapp, email
+
+quotes: id, rfq_id, supplier_id, price, lead_time
+
+leads: id, client_id, rfq_id, stage, notes, created_at
+
+settings: id, company_name, logo_url, description, whatsapp_number
