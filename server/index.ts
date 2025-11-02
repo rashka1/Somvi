@@ -34,10 +34,14 @@ app.use((req, res, next) => {
   });
 
   registerRoutes(app);
-  await setupVite(app, process.env.NODE_ENV === "production");
+  
+  // Only use Vite middleware in production
+  if (process.env.NODE_ENV === "production") {
+    await setupVite(app, true);
+  }
 
   const PORT = 5001;
-  app.listen(PORT, "0.0.0.0", () => {
+  app.listen(PORT, "localhost", () => {
     log(`Server running on port ${PORT}`);
   });
 })();

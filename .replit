@@ -5,3 +5,44 @@ expertMode = true
 [nix]
 channel = "stable-25_05"
 packages = ["postgresql"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Somvi App"
+
+[[workflows.workflow]]
+name = "Somvi App"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3001
+exposeLocalhost = true
+
+[[ports]]
+localPort = 24678
+externalPort = 3000
+
+[[ports]]
+localPort = 43293
+externalPort = 3002
